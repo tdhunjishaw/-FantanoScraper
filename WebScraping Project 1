@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Feb  3 12:23:25 2020
+
+@author: Tyler Dhunjishaw
+Website used: https://www.theneedledrop.com/
+BS Documentation: https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+Links to Item Pages:
+    https://www.theneedledrop.com/articles/2020/1/stormzy-heavy-is-the-head
+    https://www.theneedledrop.com/articles/2018/6/kids-see-ghosts-kids-see-ghosts
+    https://www.theneedledrop.com/articles/2020/1/mac-miller-circles
+    https://www.theneedledrop.com/articles/2020/1/poppy-i-disagree
+    https://www.theneedledrop.com/articles/2019/10/angel-olsen-all-mirrors
+Attributes Scraped:
+    Artist: the name of the album's artist
+    Title: the title of the album
+    Rating: what the reviewer gave the album
+    Date: the date the review was uploaded
+    Description: the reviewer's description of the album
+Table Scraped: https://www.hockey-reference.com/teams
+"""
+
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+url = 'https://www.theneedledrop.com/articles/2020/1/stormzy-heavy-is-the-head'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+span = soup.find('span', class_='entry-tags')
+artist = span.find_all('a', text="stormzy")
+title = span.find_all('a', text="heavy is the head")
+rating = span.find_all('a', text="8/10")
+
+time = soup.find('time', class_="entry-header-date")
+date = time.find_all('a', class_="entry-header-date-link")
+
+div = soup.find('div', class_="sqs-block-content")
+description = div.find_next('p')
+
+dictionary1 = {
+        "Artist": artist,
+        "Title": title,
+        "Rating": rating,
+        "Date": date,
+        "Description": description
+        }
+
+url = 'https://www.theneedledrop.com/articles/2018/6/kids-see-ghosts-kids-see-ghosts'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+span = soup.find('span', class_='entry-tags')
+artist = span.find_all('a', text="kids see ghosts")
+title = span.find_all('a', text="kids see ghosts")
+rating = span.find_all('a', text="10/10")
+
+time = soup.find('time', class_="entry-header-date")
+date = time.find_all('a', class_="entry-header-date-link")
+
+div = soup.find('div', class_="sqs-block-content")
+description = div.find_next('p')
+
+dictionary2 = {
+        "Artist": artist,
+        "Title": title,
+        "Rating": rating,
+        "Date": date,
+        "Description": description
+        }
+
+url = 'https://www.theneedledrop.com/articles/2020/1/mac-miller-circles'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+span = soup.find('span', class_='entry-tags')
+artist = span.find_all('a', text="mac miller")
+title = span.find_all('a', text="circles")
+rating = span.find_all('a', text="8/10")
+
+time = soup.find('time', class_="entry-header-date")
+date = time.find_all('a', class_="entry-header-date-link")
+
+div = soup.find('div', class_="sqs-block-content")
+description = div.find_next('p')
+
+dictionary3 = {
+        "Artist": artist,
+        "Title": title,
+        "Rating": rating,
+        "Date": date,
+        "Description": description
+        }
+
+url = 'https://www.theneedledrop.com/articles/2020/1/poppy-i-disagree'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+span = soup.find('span', class_='entry-tags')
+artist = span.find_all('a', text="poppy")
+title = span.find_all('a', text="i disagree")
+rating = span.find_all('a', text="8/10")
+
+time = soup.find('time', class_="entry-header-date")
+date = time.find_all('a', class_="entry-header-date-link")
+
+div = soup.find('div', class_="sqs-block-content")
+description = div.find_next('p')
+
+dictionary4 = {
+        "Artist": artist,
+        "Title": title,
+        "Rating": rating,
+        "Date": date,
+        "Description": description
+        }
+
+url = 'https://www.theneedledrop.com/articles/2019/10/angel-olsen-all-mirrors'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+span = soup.find('span', class_='entry-tags')
+artist = span.find_all('a', text="angel olsen")
+title = span.find_all('a', text="all mirrors")
+rating = span.find_all('a', text="6/10")
+
+time = soup.find('time', class_="entry-header-date")
+date = time.find_all('a', class_="entry-header-date-link")
+
+div = soup.find('div', class_="sqs-block-content")
+description = div.find_next('p')
+
+dictionary5 = {
+        "Artist": artist,
+        "Title": title,
+        "Rating": rating,
+        "Date": date,
+        "Description": description
+        }
+
+master_Dictionary = {
+        "Album 1:": dictionary1,
+        "Album 2:": dictionary2,
+        "Album 3:": dictionary3,
+        "Album 4:": dictionary4,
+        "Album 5:": dictionary5
+        }
+
+print(master_Dictionary)
+
+url = 'https://www.hockey-reference.com/teams'
+with urlopen(url) as fp:
+    soup = BeautifulSoup(fp, 'html.parser')
+
+My_table = soup.find(id = 'active_franchises')
